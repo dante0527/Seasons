@@ -30,7 +30,9 @@ if len(date_split) == 2:
     day = int(date_split[1])
 
 # Determines suffix for day numbers
-if str(day)[-1] == "1":
+if str(day) in ("11", "12", "13"):
+    suffix = "th"
+elif str(day)[-1] == "1":
     suffix = "st"
 elif str(day)[-1] == "2":
     suffix = "nd"
