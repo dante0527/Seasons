@@ -28,8 +28,6 @@ day = 0
 if len(date_split) == 2:
     month = str(date_split[0].title())
     day = int(date_split[1])
-else:
-    print("\nAn error occurred")
 
 # Determines suffix for day numbers
 if str(day)[-1] == "1":
