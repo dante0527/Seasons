@@ -5,18 +5,18 @@ autumn = ("September", "October", "November", "December")
 winter = ("December", "January", "February", "March")
 
 # Number of days in each month
-months = {"January" : 31,
-    "February": 28,
-    "March": 31,
-    "April" : 30,
-    "May" : 31,
-    "June" : 30,
-    "July" : 31,
-    "August" : 31,
-    "September" : 30,
-    "October": 31,
-    "November" : 30,
-    "December": 31}
+months = {"January": 31,
+          "February": 28,
+          "March": 31,
+          "April": 30,
+          "May": 31,
+          "June": 30,
+          "July": 31,
+          "August": 31,
+          "September": 30,
+          "October": 31,
+          "November": 30,
+          "December": 31}
 
 # Prompts user for date
 date = input("Enter a date (ex. May 27):\n")
@@ -48,9 +48,11 @@ else:
     if (day < 1) or (day > 31):
         print(f"\n{month} does not have a {day}{suffix} day")
 
+
 # Outputs which season the date is in
 def szn(season):
-  print(f"\n{month} {day}{suffix} is in {season}")
+    print(f"\n{month} {day}{suffix} is in {season}")
+
 
 # Determines which season the date is in and produces output
 def print_season():
@@ -82,6 +84,7 @@ def print_season():
             szn("Spring")
         else:
             szn("Winter")
+
 
 # Runs tests and produces output
 if (month in months) and (1 <= day < months[month]) and (len(date_split) == 2):
