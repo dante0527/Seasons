@@ -6,50 +6,84 @@ def clear():
 
 
 # Outputs which season the date is in
-def szn(season):
-    print(f"\n{month} {day}{suffix} is in {season}")
+def print_szn(season):
+    print(f"\n{month} {day}{suffix(day)} is in {season}")
 
 
 # Determines which season the date is in
-def print_season():
+def calc_season():
     if month in spring:
         if (month == "March") and (day < 20):
-            szn("Winter")
+            print_szn("Winter")
         elif (month == "June") and (day > 20):
-            szn("Summer")
+            print_szn("Summer")
         else:
-            szn("Spring")
+            print_szn("Spring")
     elif month in summer:
         if (month == "June") and (day < 21):
-            szn("Spring")
+            print_szn("Spring")
         elif (month == "September") and (day > 21):
-            szn("Autumn")
+            print_szn("Autumn")
         else:
-            szn("Summer")
+            print_szn("Summer")
     elif month in autumn:
         if (month == "September") and (day < 22):
-            szn("Summer")
+            print_szn("Summer")
         elif (month == "December") and (day > 20):
-            szn("Winter")
+            print_szn("Winter")
         else:
-            szn("Autumn")
+            print_szn("Autumn")
     elif month in winter:
         if (month == "December") and (day < 21):
-            szn("Autumn")
+            print_szn("Autumn")
         elif (month == "March") and (day > 19):
-            szn("Spring")
+            print_szn("Spring")
         else:
-            szn("Winter")
+            print_szn("Winter")
 
 
-def valiDate():
-    while True:
-        if len(date) != 2:
-            return False
-        if type(date[0]) != str:
-            return False
-        if type(date[1]) != int:
-            return False
+# Determines suffix for day numbers
+def suffix(day):
+    if str(day) in ("11", "12", "13"):
+        suffix = "th"
+    elif str(day)[-1] == "1":
+        suffix = "st"
+    elif str(day)[-1] == "2":
+        suffix = "nd"
+    elif str(day)[-1] == "3":
+        suffix = "rd"
+    else:
+        suffix = "th"
+
+    return suffix
+
+
+# Input validation for date (MMMM/DD)
+def valiDate(date):
+
+    # Check length of input
+    if len(date) != 2:
+        return False
+
+    # Check day type
+    try:
+        # Parse date
+        month = date[0].title()
+        day = int(date[1])
+    except:
+        return False
+
+    # Check for month and list
+    if month not in months:
+        return False
+
+    # Check for day in range
+    if int(day) < 1 or int(day > months[month]):
+        return False
+
+    # All checks passed
+    else:
+        return True
 
 
 # Months in each season
@@ -73,36 +107,17 @@ months = {"January": 31,
           "December": 31}
 
 # Prompts user for date
-date = input("Enter a date (ex. 'May 27'):\n>>").split()
+clear()
+date = input("Enter a date (ex. 'May 27'):\n> ").split()
 
-while len(date) != 2:
+# Input validation for date
+while valiDate(date) == False:
     clear()
-    date = input("Invalid date.\nEnter a date (ex. 'May 27')\n>>").split()
+    date = input("Invalid date.\nEnter a date (ex. 'May 27'):\n> ").split()
 
-month = str(date[0].title())
+# Parse date
+month = date[0].title()
 day = int(date[1])
 
-# Determines suffix for day numbers
-if str(day) in ("11", "12", "13"):
-    suffix = "th"
-elif str(day)[-1] == "1":
-    suffix = "st"
-elif str(day)[-1] == "2":
-    suffix = "nd"
-elif str(day)[-1] == "3":
-    suffix = "rd"
-else:
-    suffix = "th"
-
-# Exception handling
-if len(date) != 2:
-    print("An error occurred")
-else:
-    if month not in months:
-        print(f"\n\"{month}\" is not a valid month")
-    if (day < 1) or (day > 31):
-        print(f"\n{month} does not have a {day}{suffix} day")
-
-# Runs tests and produces output
-if (month in months) and (1 <= day < months[month]) and (len(date) == 2):
-    print_season()
+# Determine which season the date is in
+calc_season()
